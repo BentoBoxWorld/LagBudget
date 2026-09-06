@@ -1,7 +1,7 @@
 name: LagBudget
 main: world.bentobox.lagbudget.LagBudget
 version: ${version}${build.number}
-api-version: 3.22.0
+api-version: 3.17.0
 
 authors: tastybento
 

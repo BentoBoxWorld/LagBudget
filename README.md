@@ -31,7 +31,7 @@ The weights in `config.yml` are relative units, so only the ratios matter. The d
 ## Requirements
 
 - Paper 1.21.11 or later
-- BentoBox 3.22.0 or later
+- BentoBox 3.17.0 or later
 - Java 21
 
 ## Building
