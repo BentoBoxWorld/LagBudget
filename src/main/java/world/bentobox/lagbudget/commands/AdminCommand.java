@@ -8,17 +8,19 @@ import world.bentobox.lagbudget.LagBudget;
 
 /**
  * {@code /<admin> lagbudget} with {@code top}, {@code info} and {@code reload} sub-commands.
+ * On its own it behaves like {@code top}, so the ranking is one command away.
  *
  * @author tastybento
  */
 public class AdminCommand extends CompositeCommand {
 
     private final LagBudget addon;
+    private final TopCommand top;
 
     public AdminCommand(LagBudget addon, CompositeCommand parent) {
         super(parent, "lagbudget");
         this.addon = addon;
-        new TopCommand(addon, this);
+        top = new TopCommand(addon, this);
         new InfoCommand(addon, this);
         new ReloadCommand(addon, this);
     }
@@ -33,8 +35,12 @@ public class AdminCommand extends CompositeCommand {
 
     @Override
     public boolean execute(User user, String label, List<String> args) {
+        if (args.isEmpty()) {
+            // Bare command: show the ranking, the thing an admin most often wants
+            return top.execute(user, label, args);
+        }
         showHelp(this, user);
-        return true;
+        return false;
     }
 
     LagBudget getLagBudget() {

@@ -6,7 +6,7 @@
 lagbudget:
   admin:
     main:
-      description: "show which islands use the most server resources"
+      description: "show which islands use the most server resources (same as top)"
       parameters: ""
     top:
       description: "list the islands with the highest lag score"

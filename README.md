@@ -18,7 +18,8 @@ Limits started life as a way to stop players lagging a server with thousands of 
 
 | Command | Description |
 |---|---|
-| `/<admin> lagbudget top [count]` | Islands ranked by lag score, with their top contributors |
+| `/<admin> lagbudget` | Islands ranked by lag score, with their top contributors (same as `top`) |
+| `/<admin> lagbudget top [count]` | The same ranking, limited to `count` islands |
 | `/<admin> lagbudget info <player>` | Full score breakdown for a player's island |
 | `/<admin> lagbudget reload` | Reload the config |
 
