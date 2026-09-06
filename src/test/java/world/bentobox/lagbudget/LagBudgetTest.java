@@ -151,7 +151,9 @@ class LagBudgetTest {
 
     @AfterEach
     void tearDown() throws Exception {
-        addon.onDisable();
+        if (addon != null) {
+            addon.onDisable();
+        }
         if (mockedBentoBox != null) {
             mockedBentoBox.close();
         }
