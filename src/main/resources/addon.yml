@@ -1,0 +1,13 @@
+name: LagBudget
+main: world.bentobox.lagbudget.LagBudget
+version: ${version}${build.number}
+api-version: 3.22.0
+
+authors: tastybento
+
+softdepend: AcidIsland, BSkyBlock, CaveBlock, AOneBlock, SkyGrid, Boxed
+
+permissions:
+  '[gamemode].lagbudget.admin':
+    description: Admin can view lag budget rankings and breakdowns
+    default: op

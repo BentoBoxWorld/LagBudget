@@ -1,0 +1,124 @@
+# LagBudget Configuration ${version}
+#
+# LagBudget gives every island a "lag budget": a weighted score of the things on the
+# island that cost server time every tick (ticking block entities such as hoppers and
+# spawners, and entities such as villagers and minecarts). It only looks at loaded
+# chunks, because only loaded chunks cause lag, and it reads the block entities and
+# entities the server already has in memory, so sampling is cheap and no block scan
+# is ever done.
+#
+# When an island's score goes over the budget, LagBudget quietly drops new spawns on
+# that island (see the drop section). Nothing is blocked, no message is shown to the
+# player. The admin can see who is over budget with /<admin> lagbudget top and
+# /<admin> lagbudget info <player>, and the console is told when an island crosses
+# the budget line.
+
+# Game modes this addon applies to.
+gamemodes:
+- BSkyBlock
+- AcidIsland
+- CaveBlock
+- AOneBlock
+- SkyGrid
+- Boxed
+
+# The budget every island gets, in the same units as the weights below.
+# With the default weights, 500 is roughly 100 hoppers plus a 20-villager trading hall.
+budget: 500
+
+# How often a full sample pass starts, in seconds. A pass walks every loaded chunk in
+# the game mode worlds at chunks-per-tick chunks per tick, so a pass over 20,000 loaded
+# chunks at 100 chunks per tick takes 10 seconds of background work.
+sample-interval: 30
+chunks-per-tick: 100
+
+# Log to console when an island crosses the budget line in either direction.
+log-over-budget: true
+
+# Register placeholders (%<gamemode>_island_lag_score%, %<gamemode>_island_lag_budget%,
+# %<gamemode>_island_lag_over_budget%). Off by default on purpose: the moment players
+# can see this number, some will try to max it out. Turn it on only if you want it.
+placeholders: false
+
+# Number of islands shown by /<admin> lagbudget top when no count is given.
+top-size: 10
+
+drop:
+  # Spawn reasons that are silently cancelled on an island that is over budget.
+  # NATURAL covers ambient mob spawning, SPAWNER covers mob spawner blocks, BREEDING
+  # covers animal breeding. Add EGG for thrown eggs and chicken jockeys, or
+  # SPAWNER_EGG to stop spawn eggs. Any org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason
+  # name is accepted.
+  spawn-reasons:
+  - NATURAL
+  - SPAWNER
+  - BREEDING
+  # Also cancel hopper item transfers initiated on over-budget islands.
+  # WARNING: this makes LagBudget listen to InventoryMoveItemEvent, which Paper fires for
+  # every hopper transfer attempt on the whole server. Paper recommends disabling that
+  # event entirely (hopper.disable-move-event in paper-world-defaults.yml) when no plugin
+  # needs it. Enabling this option costs a little on every hopper everywhere, so leave it
+  # off unless hopper lag is your actual problem.
+  hopper-transfers: false
+
+# Relative cost weights. The units are arbitrary; only the ratios matter, so tune them
+# against a Spark profile of your own server if you have one. Anything not listed here
+# costs 0 and is not counted at all. Block entities are matched on their Material.
+block-weights:
+  HOPPER: 3
+  SPAWNER: 5
+  FURNACE: 2
+  BLAST_FURNACE: 2
+  SMOKER: 2
+  BREWING_STAND: 2
+  BEACON: 4
+  CONDUIT: 4
+  SCULK_SENSOR: 2
+  CALIBRATED_SCULK_SENSOR: 2
+  SCULK_SHRIEKER: 1
+  SCULK_CATALYST: 1
+  COMPARATOR: 1
+  DAYLIGHT_DETECTOR: 1
+  CAMPFIRE: 1
+  SOUL_CAMPFIRE: 1
+  MOVING_PISTON: 1
+
+# Entity weights, matched on EntityType. Players are never counted.
+entity-weights:
+  VILLAGER: 10
+  WANDERING_TRADER: 5
+  ZOMBIE_VILLAGER: 3
+  IRON_GOLEM: 4
+  HOPPER_MINECART: 6
+  CHEST_MINECART: 2
+  FURNACE_MINECART: 2
+  MINECART: 1
+  ITEM: 1
+  CHICKEN: 2
+  ZOMBIE: 2
+  ZOMBIFIED_PIGLIN: 2
+  PIGLIN: 3
+  DROWNED: 3
+  GUARDIAN: 3
+  ELDER_GUARDIAN: 4
+  AXOLOTL: 3
+  DOLPHIN: 3
+  TROPICAL_FISH: 2
+  COD: 2
+  SALMON: 2
+  SQUID: 2
+  GLOW_SQUID: 2
+  BEE: 3
+  ALLAY: 3
+  ENDERMAN: 2
+  WARDEN: 8
+  WITHER: 8
+  ENDER_DRAGON: 10
+  SNIFFER: 3
+  CAMEL: 2
+  FROG: 2
+
+# Weight for any mob (a living entity with AI) not listed above. Set to 0 to ignore
+# unlisted mobs. Non-mob entities not listed above (arrows, item frames, armor stands,
+# boats, and so on) always cost 0.
+default-mob-weight: 1

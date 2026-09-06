@@ -1,0 +1,27 @@
+###########################################################################################
+# This is a YML file. Be careful when editing. Check your edits in a YAML checker like    #
+# the one at http://yaml-online-parser.appspot.com                                        #
+###########################################################################################
+
+lagbudget:
+  admin:
+    main:
+      description: "show which islands use the most server resources"
+      parameters: ""
+    top:
+      description: "list the islands with the highest lag score"
+      parameters: "[count]"
+      header: "<green>Top [count] islands by lag score <gray>(budget [budget])"
+      line: "<yellow>[rank]. <white>[name] <gray>- <yellow>[score]<gray>/[budget] <dark_gray>[top]"
+      over: "<red>*"
+      none: "<red>No island samples yet. The first sample pass runs [interval] seconds after startup."
+    info:
+      description: "show the lag score breakdown for a player's island"
+      parameters: "<player>"
+      header: "<green>Lag score for <white>[name]<green>: <yellow>[score]<gray>/[budget]"
+      over: "<red>This island is over budget. Spawns are being dropped there."
+      line: "<gray> - <white>[key] <gray>x[count] <gray>= <yellow>[score]"
+      none: "<red>No sample yet for this island. Its chunks may not be loaded."
+    reload:
+      description: "reload the LagBudget config"
+      done: "<green>LagBudget config reloaded."
