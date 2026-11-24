@@ -1,5 +1,8 @@
 # LagBudget
 
+<!-- BentoBox stats badges: https://download.bentobox.world/admin (Badges tab) -->
+[![Minecraft](https://download.bentobox.world/badge/LagBudget/mc.svg)](https://download.bentobox.world/)
+
 A [BentoBox](https://github.com/BentoBoxWorld/BentoBox) addon that gives every island a **lag budget** and quietly drops spawns on islands that exceed it.
 
 ## Why
